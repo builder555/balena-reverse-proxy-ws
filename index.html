@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebSocket demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            * {
+                user-select: none;
+                margin:0;
+                padding: 0;
+            }
+            button {
+                margin:20px auto;
+                width:100px;
+                height:100px;
+                display: block;
+                border-radius: 50%;
+                user-select: none;
+                border:none;
+            }
+            .on {
+                background-color: #0f0;
+            }
+            .off {
+                background-color: rgb(63, 98, 128);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <button
+                :class="buttonClass"
+                @touchstart.prevent="start"
+                @touchend.prevent="stop"
+                @mousedown.prevent="start"
+                @mouseup.prevent="stop"
+                :disabled="!isConnected"
+            >ON</button>
+        </div>
+        <script src="vue.min.js"></script>
+        <script>
+            (() => {
+                const app = new Vue({
+                    el:'#app',
+                    data: () => ({
+                        ws: null,
+                        isOn: false,
+                        isConnected: false,
+                        message: '',
+                    }),
+                    methods: {
+                        start() {
+                            this.isOn = true;
+                            this.ws.send('1');
+                        },
+                        stop() {
+                            this.isOn = false;
+                            this.ws.send('0');
+                        },
+                        connect() {
+                            this.ws = new WebSocket(`ws://${window.location.host}:${window.location.port}/socket`);
+                            this.ws.onmessage = ({data}) => {
+                                this.message = data;
+                            };
+                            this.ws.onopen = () => {
+                                this.isConnected = true;
+                            };
+                            this.ws.onclose = () => {
+                                this.isConnected = false;
+                                this.connect();
+                            };
+                            this.ws.onerror = (error) => {
+                            };
+                        }
+                    },
+                    computed: {
+                        buttonClass() {
+                            return this.isOn ? 'on' : 'off';
+                        }
+                    },
+                    mounted() {
+                        this.connect();
+                    },
+                });
+            })();
+        </script>
+    </body>
+</html>
