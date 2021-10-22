@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>WebSocket demo</title>
+        <title>Websocket Button</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             * {
@@ -58,7 +58,8 @@
                             this.ws.send('0');
                         },
                         connect() {
-                            this.ws = new WebSocket(`ws://${window.location.host}:${window.location.port}/socket`);
+                            const protocol = window.location.protocol.indexOf('https') >= 0 ? 'wss' : 'ws';
+                            this.ws = new WebSocket(`${protocol}://${window.location.host}:${window.location.port}/socket`);
                             this.ws.onmessage = ({data}) => {
                                 this.message = data;
                             };
