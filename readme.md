@@ -26,3 +26,5 @@ ___Environment variables defaults___
 
 - `WSPORT`: 8765
 - `WSHOST`: ws-server
+
+_logo image by [coquet_adrien](https://thenounproject.com/coquet_adrien)_
