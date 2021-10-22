@@ -1,0 +1,28 @@
+name: reverse-proxy-ws
+description: >-
+  Provides a front end and an endpoint for websocket connections. Requires a ws server to accept connections.
+version: 0.1.0
+type: sw.application
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: 'https://github.com/builder555/balena-reverse-proxy-ws'
+  logo:
+    type: blob.asset
+    data:
+      url: 'https://raw.githubusercontent.com/builder555/balena-reverse-proxy-ws/master/logo.png'
+data:
+  defaultDeviceType: raspberrypi3
+  supportedDeviceTypes:
+    - raspberry-pi
+    - raspberry-pi2
+    - raspberrypi3
+    - raspberrypi3-64
+    - raspberrypi4-64
+    - raspberrypi400-64
+    - nanopi-neo-air
+    - fincm3
+    - intel-nuc
+    - jetson-nano
+    - beaglebone-black
